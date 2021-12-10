@@ -121,7 +121,8 @@ body {
   align-items: center;
   flex-direction: column;
   position: relative;
-
+  user-select: none;
+  cursor: grab;
   animation: slideIn 1s;
 }
 
@@ -194,9 +195,6 @@ body {
 }
 
 /* Third section */
-.card {
-  font-size: 16px;
-}
 
 .card .bold {
   font-weight: 600;
