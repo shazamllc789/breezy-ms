@@ -16,8 +16,12 @@ const createCard = function (data) {
     card.classList.add("card");
     const closeCard = document.createElement("i");
     closeCard.classList.add("fas", "fa-times", "close");
-    closeCard.addEventListener("click", function () {
-        this.parentElement.remove();
+    closeCard.addEventListener("click", () => {
+        const card = closeCard.parentElement;
+        card.classList.add("remove");
+        card.addEventListener("animationend", function () {
+            card.remove();
+        });
     });
     // Destructure Object
     const { main: { temp: temp }, weather: { [0]: { main: weather }, }, main: { feels_like: feelslike }, name: cityLocation, timezone: timezoneOffset, main: { humidity: humidity }, wind: { speed: windSpeed }, wind: { deg: windDirection }, main: { temp_min: minTemp }, main: { temp_max: maxTemp }, } = data;
@@ -41,7 +45,6 @@ const createCard = function (data) {
         Clouds: `<i class='fas fa-cloud'></i>`,
     };
     card.insertAdjacentHTML("beforeend", `
-    <i class="fas fa-times close"></i>
     <section>
         <span class='temp'>${icon[weather] || icon["Clouds"]}${temp}°C</span>
         <span class='weather'>${weather}</span>
