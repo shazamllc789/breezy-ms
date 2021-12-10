@@ -5,7 +5,7 @@ const cards = document.querySelector(".cards");
 const getData = async function (city) {
     console.log(city);
     const ApiURL = `api.openweathermap.org/data/2.5/weather?q=${city}`;
-    const response = await fetch(`https:/${ApiURL}&appid=${apiKey}&units=metric`);
+    const response = await fetch(`https://${ApiURL}&appid=${apiKey}&units=metric`);
     const data = await response.json();
     cityInput.value = "";
     createCard(data);
