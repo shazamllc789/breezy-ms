@@ -1,0 +1,237 @@
+*,
+*::before,
+*::after {
+  margin: 0px;
+  padding: 0px;
+  box-sizing: border-box;
+}
+
+body {
+  background-color: #101319;
+  color: white;
+}
+
+/* Navbar */
+.navbar {
+  color: white;
+  overflow: hidden;
+  display: block;
+  margin: 25px 30px 25px 30px;
+}
+
+.navbar * {
+  display: table-cell;
+  vertical-align: middle;
+}
+
+.navbar .nav-brand {
+  font-family: "Montserrat", sans-serif;
+  font-weight: 900;
+  font-size: 28px;
+  display: inline-block;
+}
+
+.navbar .nav-links {
+  list-style-type: none;
+  float: right;
+}
+
+.navbar .nav-links .nav-item {
+  font-family: "Karla", sans-serif;
+  font-size: 16px;
+}
+
+.navbar .nav-links .nav-item i {
+  display: inline;
+  position: relative;
+  top: -2px;
+  margin: 10px;
+  font-size: 20px;
+}
+
+.navbar .nav-links .nav-item a {
+  text-decoration: none;
+  color: rgba(255, 255, 255, 0.5);
+  display: block;
+  transition: color 250ms;
+  margin: 10px;
+}
+
+.navbar .nav-links .nav-item a:hover {
+  color: rgb(184, 184, 184);
+}
+
+/* Weather*/
+.weather {
+  width: 100%;
+  text-align: center;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.input {
+  position: block;
+  margin-bottom: 20px;
+  height: 100;
+}
+
+.city-input {
+  background: none;
+  border: none;
+  outline: none;
+  margin-top: 100px;
+
+  font-family: "Montserrat", sans-serif;
+  font-weight: 700;
+  max-width: 300px;
+  padding-bottom: 7.5px;
+  font-size: 25px;
+  text-align: center;
+  border: 10px;
+  border-bottom: 5px solid rgb(255, 255, 255, 0.55);
+  color: white;
+  transition: border 500ms;
+}
+
+.city-input:focus {
+  border-color: rgb(255, 255, 255, 0.9);
+}
+/* Cards */
+.cards {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+}
+
+.card {
+  flex: 0.00001;
+  font-family: "Montserrat", sans-serif;
+  min-width: 285px;
+  max-height: 430px;
+  margin: 15px;
+  border-radius: 10px;
+  text-align: center;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  position: relative;
+
+  animation: slideIn 1s;
+}
+
+.card section {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  margin: 25px;
+}
+
+.card hr {
+  margin: -10px;
+  width: 85%;
+  display: block;
+  height: 1px;
+  border: 0;
+  border-top: 3.5px solid rgba(255, 255, 255, 0.664);
+  border-radius: 25px;
+  padding: 0;
+}
+
+.card .spread * {
+  margin-top: 5px;
+}
+
+.card i {
+  margin: 5px;
+}
+
+.card .close {
+  position: absolute;
+  right: 7.5px;
+  top: 7.5px;
+
+  cursor: pointer;
+  transition: color 500ms ease-in-out;
+}
+
+.card .close:hover {
+  color: rgb(184, 184, 184);
+}
+
+/* First Section */
+.card .temp {
+  font-weight: 900;
+  font-size: 40px;
+  margin: 5px 0 5px 0;
+}
+
+.card .weather {
+  font-size: 17px;
+  font-weight: 600;
+}
+
+.card .feelslike {
+  margin-top: 5px;
+  font-size: 12px;
+}
+
+/* Second section */
+.card .location {
+  font-size: 20px;
+  font-weight: 900;
+  margin-bottom: 5px;
+}
+
+.card .time {
+  font-size: 30px;
+  font-weight: 500;
+}
+
+/* Third section */
+.card {
+  font-size: 16px;
+}
+
+.card .bold {
+  font-weight: 600;
+}
+
+/* Smooth Flexbox */
+@keyframes slideIn {
+  0% {
+    opacity: 0;
+    top: 50px;
+  }
+  100% {
+    opacity: 1;
+
+    top: 0px;
+  }
+}
+
+/* Custom card stylings */
+.cold {
+  background: rgb#86DFEC;
+  background: linear-gradient(135deg, #86dfec 0%, #48bfe3 100%);
+}
+
+.normal {
+  background: #d9ed92;
+  background: linear-gradient(135deg, #d9ed92 0%, #99d98c 100%);
+}
+
+.warm {
+  background: #f2bc6b;
+  background: linear-gradient(135deg, #f2bc6b 0%, #ffb23e 100%);
+}
+
+.hot {
+  background: #e95da8;
+  background: linear-gradient(135deg, #e95da8 0%, #ef385d 100%);
+}
