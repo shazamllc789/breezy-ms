@@ -1,10 +1,7 @@
-import dragula from "dragula";
+"use strict";
 const cityForm = document.querySelector(".city-form");
 const cityInput = document.querySelector(".city-input");
 const cards = document.querySelector(".cards");
-const updateDraggable = () => {
-    dragula([...document.querySelectorAll(".card")]);
-};
 const getData = async function (city) {
     console.log(city);
     const ApiURL = `https://api.openweathermap.org/data/2.5/weather?q=${city}`;
@@ -24,7 +21,6 @@ const createCard = function (data) {
         card.classList.add("remove");
         card.addEventListener("animationend", function () {
             card.remove();
-            updateDraggable();
         });
     });
     // Destructure Object
@@ -113,7 +109,6 @@ cityForm?.addEventListener("submit", (e) => {
     e.preventDefault();
     const city = cityInput.value;
     getData(city);
-    updateDraggable();
 });
 // Close Card
 const apiKey = "ea390100406a8a63c2e527be8c448e77";

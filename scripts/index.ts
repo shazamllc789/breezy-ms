@@ -1,12 +1,6 @@
-import dragula from "dragula";
-
 const cityForm: HTMLFormElement = document.querySelector(".city-form");
 const cityInput: HTMLInputElement = document.querySelector(".city-input");
 const cards: HTMLElement = document.querySelector(".cards");
-
-const updateDraggable = () => {
-  dragula([...document.querySelectorAll(".card")]);
-};
 
 const getData = async function (city: string) {
   console.log(city);
@@ -30,7 +24,6 @@ const createCard = function (data: any) {
     card.classList.add("remove");
     card.addEventListener("animationend", function () {
       card.remove();
-      updateDraggable();
     });
   });
 
@@ -142,8 +135,6 @@ cityForm?.addEventListener("submit", (e: SubmitEvent) => {
   const city: string = cityInput.value;
 
   getData(city);
-
-  updateDraggable();
 });
 
 // Close Card
