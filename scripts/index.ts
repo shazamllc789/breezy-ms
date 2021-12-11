@@ -120,11 +120,11 @@ const createCard = function (data: any) {
     <section class='spread'>
         <span class='mintemp'>
             <span class='bold'>Min temperature:</span>
-            <span class='temp-number'>${minTemp}</span>
+            <span class='temp-number'>${minTemp}°C</span>
         </span>
         <span class='maxtemp'>
             <span class='bold'>Max temperature:</span>
-            <span class='temp-number'>${maxTemp}</span>
+            <span class='temp-number'>${maxTemp}°C</span>
         </span>
     </section>
   `
