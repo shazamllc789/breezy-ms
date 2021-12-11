@@ -1,4 +1,6 @@
 const cityForm: HTMLFormElement = document.querySelector(".city-form");
+const errorMessage: HTMLElement = document.createElement("p");
+errorMessage.classList.add("error");
 const cityInput: HTMLInputElement = document.querySelector(".city-input");
 const cards: HTMLElement = document.querySelector(".cards");
 
@@ -8,9 +10,20 @@ const getData = async function (city: string) {
   const response: Response = await fetch(
     `${ApiURL}&appid=${apiKey}&units=metric`
   );
-  const data: JSON = await response.json();
-  cityInput.value = "";
-  createCard(data);
+  // Okay!
+  if (response.ok) {
+    console.info(`API OK! ${response.status}`);
+
+    const data: JSON = await response.json();
+    cityInput.value = "";
+    errorMessage.style.visibility = "hidden";
+    createCard(data);
+  } else if (response.status === 404) {
+    errorMessage.textContent = `'${cityInput.value}' is not a valid city!`;
+    errorMessage.style.visibility = "visible";
+
+    cityForm.append(errorMessage);
+  }
 };
 
 const createCard = function (data: any) {

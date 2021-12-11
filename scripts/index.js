@@ -1,14 +1,26 @@
 "use strict";
 const cityForm = document.querySelector(".city-form");
+const errorMessage = document.createElement("p");
+errorMessage.classList.add("error");
 const cityInput = document.querySelector(".city-input");
 const cards = document.querySelector(".cards");
 const getData = async function (city) {
     console.log(city);
     const ApiURL = `https://api.openweathermap.org/data/2.5/weather?q=${city}`;
     const response = await fetch(`${ApiURL}&appid=${apiKey}&units=metric`);
-    const data = await response.json();
-    cityInput.value = "";
-    createCard(data);
+    // Okay!
+    if (response.ok) {
+        console.info(`API OK! ${response.status}`);
+        const data = await response.json();
+        cityInput.value = "";
+        errorMessage.style.visibility = "hidden";
+        createCard(data);
+    }
+    else if (response.status === 404) {
+        errorMessage.textContent = `'${cityInput.value}' is not a valid city!`;
+        errorMessage.style.visibility = "visible";
+        cityForm.append(errorMessage);
+    }
 };
 const createCard = function (data) {
     // Initialize card
