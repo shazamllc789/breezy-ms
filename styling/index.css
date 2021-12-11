@@ -80,7 +80,6 @@ body {
   border-radius: 5px;
   background-color: #f54932;
   width: fit-content;
-  visibility: hidden;
   animation: shake 0.2s ease-in-out 0s 2;
 }
 
@@ -148,8 +147,7 @@ body {
   align-items: center;
   flex-direction: column;
   position: relative;
-  user-select: none;
-  cursor: grab;
+  cursor: pointer;
   animation: slideIn 1s;
   animation-timing-function: ease-out;
 }
@@ -169,18 +167,30 @@ body {
   border-radius: 25px;
   padding: 0;
 }
+
 .card .spread * {
   margin-top: 5px;
 }
 .card i {
   margin: 5px;
 }
+.card .convert {
+  position: absolute;
+  left: 7.5px;
+  top: 7.5px;
+  transition: color 500ms;
+}
+
+.card .convert:hover {
+  color: rgb(184, 184, 184);
+}
+
 .card .close {
   position: absolute;
   right: 7.5px;
   top: 7.5px;
   cursor: pointer;
-  transition: color 500ms ease-in-out;
+  transition: color 500ms;
 }
 .card .close:hover {
   color: rgb(184, 184, 184);
@@ -210,7 +220,7 @@ body {
 .card .bold {
   font-weight: 600;
 }
-.remove {
+.card .remove {
   position: relative;
   animation: slideOut 500ms;
 }

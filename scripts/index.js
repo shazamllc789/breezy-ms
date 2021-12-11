@@ -2,6 +2,7 @@
 const cityForm = document.querySelector(".city-form");
 const cityInput = document.querySelector(".city-input");
 const cards = document.querySelector(".cards");
+let tempMeasurement = "celcius";
 const createClose = function (parent) {
     const closeCard = document.createElement("i");
     closeCard.classList.add("fas", "fa-times", "close");
@@ -14,29 +15,26 @@ const createClose = function (parent) {
     });
 };
 const getData = async function (city) {
-    console.log(city);
     const ApiURL = `https://api.openweathermap.org/data/2.5/weather?q=${city}`;
     const response = await fetch(`${ApiURL}&appid=${apiKey}&units=metric`);
     // Okay!
     const errorMessage = document.createElement("p");
     errorMessage.classList.add("error");
     if (response.ok) {
-        console.info(`API OK! ${response.status}`);
         const data = await response.json();
-        cityInput.value = "";
         createCard(data);
     }
     else if (response.status === 404) {
         errorMessage.textContent = `'${cityInput.value}' is not a valid city!`;
         createClose(errorMessage);
-        errorMessage.style.visibility = "visible";
         cityForm.append(errorMessage);
     }
+    cityInput.value = "";
 };
 const createCard = function (data) {
     // Initialize card
     const card = document.createElement("section");
-    card.classList.add("card");
+    card.classList.add("card", "celcius");
     // Destructure Object
     const { main: { temp: temp }, weather: { [0]: { main: weather }, }, sys: { country: country }, main: { feels_like: feelslike }, name: cityLocation, timezone: timezoneOffset, main: { humidity: humidity }, wind: { speed: windSpeed }, wind: { deg: windDirection }, main: { temp_min: minTemp }, main: { temp_max: maxTemp }, } = data;
     // Translate time
@@ -60,7 +58,8 @@ const createCard = function (data) {
     };
     card.insertAdjacentHTML("beforeend", `
     <section>
-        <span class='temp'>${icon[weather] || icon["Clouds"]}${temp}°C</span>
+        <span class='temp'>${icon[weather] || icon["Clouds"]}<span class='temp-number'>${temp}°C</span>
+        </span>
         <span class='weather'>${weather}</span>
         <span class='feelslike'>Feels like: ${feelslike}°C</span>
     </section>
@@ -91,11 +90,11 @@ const createCard = function (data) {
     <section class='spread'>
         <span class='mintemp'>
             <span class='bold'>Min temperature:</span>
-            ${minTemp}°C
+            <span class='temp-number'>${minTemp}</span>
         </span>
         <span class='maxtemp'>
             <span class='bold'>Max temperature:</span>
-            ${maxTemp}°C
+            <span class='temp-number'>${maxTemp}</span>
         </span>
     </section>
   `);
@@ -116,7 +115,35 @@ const createCard = function (data) {
     }
     // Add color, and finish up the cards
     card.classList.add(cardColor);
+    const convert = document.createElement("i");
+    convert.classList.add("fas", "fa-exchange-alt", "convert");
+    convert.addEventListener("click", () => {
+        const tempElements = card.querySelectorAll(".temp-number");
+        // To Fahrenheit
+        // multiply by 1.8 (or 9/5) and add 32.
+        if (card.classList.contains("celcius")) {
+            Array.from(tempElements, (e) => {
+                const element = e.parentElement.querySelector(".temp-number");
+                const tempNumber = Number(element.textContent.substring(0, element.textContent.length - 2));
+                element.textContent = `
+      ${(tempNumber * 1.8 + 32).toFixed(2)}°F`;
+            });
+            card.classList.toggle("celcius");
+            // To Celcius
+            // subtract 32 and multiply by . 5556 (or 5/9).
+        }
+        else {
+            Array.from(tempElements, (e) => {
+                const element = e.parentElement.querySelector(".temp-number");
+                const tempNumber = Number(element.textContent.substring(0, element.textContent.length - 2));
+                element.textContent = `
+      ${((tempNumber - 32) * (5 / 9)).toFixed(2)}°C`;
+            });
+            card.classList.toggle("celcius");
+        }
+    });
     createClose(card);
+    card.append(convert);
     cards.append(card);
 };
 cityForm?.addEventListener("submit", (e) => {
