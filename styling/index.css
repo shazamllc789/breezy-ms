@@ -81,8 +81,16 @@ body {
   background-color: #f5a732;
   width: fit-content;
   visibility: hidden;
-
   animation: shake 0.2s ease-in-out 0s 2;
+}
+
+.error i {
+  top: 50%;
+  position: relative;
+  vertical-align: middle;
+  margin-left: 10px;
+  bottom: 1px;
+  cursor: pointer;
 }
 
 /* Error animation */
@@ -202,10 +210,11 @@ body {
 .card .bold {
   font-weight: 600;
 }
-.cards .remove {
+.remove {
   position: relative;
   animation: slideOut 500ms;
 }
+
 @keyframes slideIn {
   0% {
     opacity: 0;

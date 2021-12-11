@@ -1,8 +1,18 @@
 const cityForm: HTMLFormElement = document.querySelector(".city-form");
-const errorMessage: HTMLElement = document.createElement("p");
-errorMessage.classList.add("error");
 const cityInput: HTMLInputElement = document.querySelector(".city-input");
 const cards: HTMLElement = document.querySelector(".cards");
+
+const createClose = function (parent: HTMLElement) {
+  const closeCard: HTMLElement = document.createElement("i");
+  closeCard.classList.add("fas", "fa-times", "close");
+  parent.append(closeCard);
+  closeCard.addEventListener("click", () => {
+    parent.classList.add("remove");
+    parent.addEventListener("animationend", function () {
+      parent.remove();
+    });
+  });
+};
 
 const getData = async function (city: string) {
   console.log(city);
@@ -11,17 +21,16 @@ const getData = async function (city: string) {
     `${ApiURL}&appid=${apiKey}&units=metric`
   );
   // Okay!
+  const errorMessage: HTMLElement = document.createElement("p");
+  errorMessage.classList.add("error");
   if (response.ok) {
     console.info(`API OK! ${response.status}`);
-
     const data: JSON = await response.json();
     cityInput.value = "";
-    errorMessage.style.visibility = "hidden";
     createCard(data);
   } else if (response.status === 404) {
     errorMessage.textContent = `'${cityInput.value}' is not a valid city!`;
-    errorMessage.style.visibility = "visible";
-
+    createClose(errorMessage);
     cityForm.append(errorMessage);
   }
 };
@@ -30,15 +39,6 @@ const createCard = function (data: any) {
   // Initialize card
   const card: HTMLElement = document.createElement("section");
   card.classList.add("card");
-  const closeCard: HTMLElement = document.createElement("i");
-  closeCard.classList.add("fas", "fa-times", "close");
-  closeCard.addEventListener("click", () => {
-    const card = closeCard.parentElement;
-    card.classList.add("remove");
-    card.addEventListener("animationend", function () {
-      card.remove();
-    });
-  });
 
   // Destructure Object
   const {
@@ -46,6 +46,7 @@ const createCard = function (data: any) {
     weather: {
       [0]: { main: weather },
     },
+    sys: { country: country },
     main: { feels_like: feelslike },
     name: cityLocation,
     timezone: timezoneOffset,
@@ -89,7 +90,7 @@ const createCard = function (data: any) {
     </section>
     <hr>
     <section>
-        <span class='location'>${cityLocation}</span>
+        <span class='location'>${cityLocation}, ${country}</span>
         <span class='time'>${cityTime.toLocaleTimeString(navigator.language, {
           hour: "2-digit",
           minute: "2-digit",
@@ -139,7 +140,7 @@ const createCard = function (data: any) {
 
   // Add color, and finish up the cards
   card.classList!.add(cardColor);
-  card.append(closeCard);
+  createClose(card);
   cards.append(card);
 };
 
@@ -149,7 +150,5 @@ cityForm?.addEventListener("submit", (e: SubmitEvent) => {
 
   getData(city);
 });
-
-// Close Card
 
 const apiKey = "ea390100406a8a63c2e527be8c448e77";

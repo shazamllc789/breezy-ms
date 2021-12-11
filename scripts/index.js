@@ -1,23 +1,34 @@
 "use strict";
 const cityForm = document.querySelector(".city-form");
-const errorMessage = document.createElement("p");
-errorMessage.classList.add("error");
 const cityInput = document.querySelector(".city-input");
 const cards = document.querySelector(".cards");
+const createClose = function (parent) {
+    const closeCard = document.createElement("i");
+    closeCard.classList.add("fas", "fa-times", "close");
+    parent.append(closeCard);
+    closeCard.addEventListener("click", () => {
+        parent.classList.add("remove");
+        parent.addEventListener("animationend", function () {
+            parent.remove();
+        });
+    });
+};
 const getData = async function (city) {
     console.log(city);
     const ApiURL = `https://api.openweathermap.org/data/2.5/weather?q=${city}`;
     const response = await fetch(`${ApiURL}&appid=${apiKey}&units=metric`);
     // Okay!
+    const errorMessage = document.createElement("p");
+    errorMessage.classList.add("error");
     if (response.ok) {
         console.info(`API OK! ${response.status}`);
         const data = await response.json();
         cityInput.value = "";
-        errorMessage.style.visibility = "hidden";
         createCard(data);
     }
     else if (response.status === 404) {
         errorMessage.textContent = `'${cityInput.value}' is not a valid city!`;
+        createClose(errorMessage);
         errorMessage.style.visibility = "visible";
         cityForm.append(errorMessage);
     }
@@ -26,17 +37,8 @@ const createCard = function (data) {
     // Initialize card
     const card = document.createElement("section");
     card.classList.add("card");
-    const closeCard = document.createElement("i");
-    closeCard.classList.add("fas", "fa-times", "close");
-    closeCard.addEventListener("click", () => {
-        const card = closeCard.parentElement;
-        card.classList.add("remove");
-        card.addEventListener("animationend", function () {
-            card.remove();
-        });
-    });
     // Destructure Object
-    const { main: { temp: temp }, weather: { [0]: { main: weather }, }, main: { feels_like: feelslike }, name: cityLocation, timezone: timezoneOffset, main: { humidity: humidity }, wind: { speed: windSpeed }, wind: { deg: windDirection }, main: { temp_min: minTemp }, main: { temp_max: maxTemp }, } = data;
+    const { main: { temp: temp }, weather: { [0]: { main: weather }, }, sys: { country: country }, main: { feels_like: feelslike }, name: cityLocation, timezone: timezoneOffset, main: { humidity: humidity }, wind: { speed: windSpeed }, wind: { deg: windDirection }, main: { temp_min: minTemp }, main: { temp_max: maxTemp }, } = data;
     // Translate time
     const d = new Date();
     const [localTime, localOffset] = [d.getTime(), d.getTimezoneOffset() * 60000];
@@ -64,7 +66,7 @@ const createCard = function (data) {
     </section>
     <hr>
     <section>
-        <span class='location'>${cityLocation}</span>
+        <span class='location'>${cityLocation}, ${country}</span>
         <span class='time'>${cityTime.toLocaleTimeString(navigator.language, {
         hour: "2-digit",
         minute: "2-digit",
@@ -114,7 +116,7 @@ const createCard = function (data) {
     }
     // Add color, and finish up the cards
     card.classList.add(cardColor);
-    card.append(closeCard);
+    createClose(card);
     cards.append(card);
 };
 cityForm?.addEventListener("submit", (e) => {
@@ -122,5 +124,4 @@ cityForm?.addEventListener("submit", (e) => {
     const city = cityInput.value;
     getData(city);
 });
-// Close Card
 const apiKey = "ea390100406a8a63c2e527be8c448e77";
