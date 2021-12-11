@@ -3,15 +3,20 @@ const cityForm = document.querySelector(".city-form");
 const cityInput = document.querySelector(".city-input");
 const cards = document.querySelector(".cards");
 let tempMeasurement = "celcius";
-const createClose = function (parent) {
+const createClose = function (parent, addAnimation) {
     const closeCard = document.createElement("i");
     closeCard.classList.add("fas", "fa-times", "close");
     parent.append(closeCard);
     closeCard.addEventListener("click", () => {
-        parent.classList.add("remove");
-        parent.addEventListener("animationend", function () {
+        if (addAnimation) {
+            parent.classList.add("remove");
+            parent.addEventListener("animationend", function () {
+                parent.remove();
+            });
+        }
+        else {
             parent.remove();
-        });
+        }
     });
 };
 const getData = async function (city) {
@@ -26,7 +31,7 @@ const getData = async function (city) {
     }
     else if (response.status === 404) {
         errorMessage.textContent = `'${cityInput.value}' is not a valid city!`;
-        createClose(errorMessage);
+        createClose(errorMessage, false);
         cityForm.append(errorMessage);
     }
     cityInput.value = "";
@@ -142,7 +147,7 @@ const createCard = function (data) {
             card.classList.toggle("celcius");
         }
     });
-    createClose(card);
+    createClose(card, true);
     card.append(convert);
     cards.append(card);
 };

@@ -220,7 +220,7 @@ body {
 .card .bold {
   font-weight: 600;
 }
-.card .remove {
+.remove {
   position: relative;
   animation: slideOut 500ms;
 }
