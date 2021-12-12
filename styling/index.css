@@ -56,7 +56,6 @@ body {
   font-size: 30px;
   color: white;
   float: right;
-  line-height: 80px;
   margin-right: 10px;
   cursor: pointer;
   display: none;
@@ -277,7 +276,7 @@ body {
 
 @media (max-width: 858px) {
   .checkbtn {
-    display: block;
+    display: inline-block;
   }
   .nav-links {
     position: fixed;
@@ -297,6 +296,11 @@ body {
   }
   nav ul li a {
     font-size: 20px;
+  }
+  a:hover,
+  a.active {
+    background: none;
+    color: #0082e6;
   }
   #check:checked ~ ul {
     left: 0;
