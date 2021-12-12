@@ -62,6 +62,7 @@ body {
 }
 #check {
   display: none;
+  visibility: middle;
 }
 
 .weather {
@@ -188,6 +189,7 @@ body {
 }
 .card .convert {
   position: absolute;
+  pointer: cursor;
   left: 7.5px;
   top: 7.5px;
   transition: color 500ms;
