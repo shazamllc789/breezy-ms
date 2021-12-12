@@ -189,7 +189,7 @@ body {
 }
 .card .convert {
   position: absolute;
-  pointer: cursor;
+  cursor: pointer;
   left: 7.5px;
   top: 7.5px;
   transition: color 500ms;
