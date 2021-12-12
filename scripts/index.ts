@@ -156,7 +156,7 @@ const createCard = function (data: any) {
         const tempNumber = Number(
           element.textContent.substring(0, element.textContent.length - 2)
         );
-        element.textContent = `${(tempNumber * 1.8 + 32).toFixed(2)}°F`;
+        element.textContent = `${(tempNumber * 1.8 + 32).toFixed(1)}°F`;
       });
       card.classList.toggle("celcius");
       // To Celcius
