@@ -1,7 +1,6 @@
 const cityForm: HTMLFormElement = document.querySelector(".city-form");
 const cityInput: HTMLInputElement = document.querySelector(".city-input");
 const cards: HTMLElement = document.querySelector(".cards");
-let tempMeasurement = "celcius";
 
 const createClose = function (parent: HTMLElement, addAnimation: boolean) {
   const closeCard: HTMLElement = document.createElement("i");

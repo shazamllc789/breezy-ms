@@ -2,7 +2,6 @@
 const cityForm = document.querySelector(".city-form");
 const cityInput = document.querySelector(".city-input");
 const cards = document.querySelector(".cards");
-let tempMeasurement = "celcius";
 const createClose = function (parent, addAnimation) {
     const closeCard = document.createElement("i");
     closeCard.classList.add("fas", "fa-times", "close");

@@ -51,6 +51,20 @@ body {
 .navbar .nav-links .nav-item a:hover {
   color: rgb(184, 184, 184);
 }
+
+.checkbtn {
+  font-size: 30px;
+  color: white;
+  float: right;
+  line-height: 80px;
+  margin-right: 10px;
+  cursor: pointer;
+  display: none;
+}
+#check {
+  display: none;
+}
+
 .weather {
   width: 100%;
   text-align: center;
@@ -147,7 +161,6 @@ body {
   align-items: center;
   flex-direction: column;
   position: relative;
-  cursor: pointer;
   animation: slideIn 1s;
   animation-timing-function: ease-out;
 }
@@ -260,4 +273,32 @@ body {
 .hot {
   background: #e95da8;
   background: linear-gradient(135deg, #e95da8 0%, #ef385d 100%);
+}
+
+@media (max-width: 858px) {
+  .checkbtn {
+    display: block;
+  }
+  .nav-links {
+    position: fixed;
+    width: 100%;
+    background-color: #101319;
+    height: 100vh;
+    top: 80px;
+    left: -100%;
+    flex-direction: column;
+    text-align: center;
+    transition: all 0.5s;
+  }
+  .navbar .nav-links .nav-item {
+    display: block;
+    margin: 50px 0;
+    line-height: 30px;
+  }
+  nav ul li a {
+    font-size: 20px;
+  }
+  #check:checked ~ ul {
+    left: 0;
+  }
 }
