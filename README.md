@@ -7,7 +7,7 @@ where you can see ☁️ local forecast information about any city in the world.
 
 ----------------------------
 
-🌐 https://d15gu15e.github.io/breezy/
+🌐 https://eben-vranken.github.io/breezy/
 
 ----------------------------
 
