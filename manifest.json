@@ -3,10 +3,10 @@
   "description": "Breezy: Experience weather updates at your fingertips with a fast and easy-to-use app. Stay informed with accurate forecasts and sleek design for effortless weather tracking!",
   "dir": "ltr",
   "display": "standalone",
-  "name": "Breezy — Weather made Fast & Easy",
+  "name": "Breezy",
   "orientation": "any",
   "scope": "/",
-  "short_name": "Breezy — Weather made Fast & Easy",
+  "short_name": "Breezy",
   "start_url": "/",
   "theme_color": "#ffffff",
   "categories": [
@@ -48,7 +48,7 @@
   ],
   "shortcuts": [
     {
-      "name": "Breezy — Weather made Fast & Easy",
+      "name": "Breezy",
       "url": "",
       "description": "Breezy: Experience weather updates at your fingertips with a fast and easy-to-use app. Stay informed with accurate forecasts and sleek design for effortless weather tracking!"
     }
